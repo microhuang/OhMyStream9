@@ -17,7 +17,7 @@ CentOS 8 / CentOS Stream 8 升级 CentOS Stream 9 简明教程
 
 别担心，通过这篇文章提供的方法，您也能在`CentOS 8`上升级到`CentOS Stream 9`，保留所有数据，并且不用重装系统！
 
-## 食用指南
+## 实用指南
 
 **Warning**：升级大版本有可能会导致软件甚至系统无法正常运行，请谨慎操作！  
 **Tips**: 开始操作前请您阅读全文。遇到问题您可以开`issue`，提交更好的解决方案请提交`pull request`。
@@ -202,6 +202,26 @@ sudo dnf reinstall -y *
 ```
 
 享受你的新系统！
+
+
+## 实战--通过本地源升级到centos stream 9
+
+```
+1、网络下载并安装epel9更新源（唯一需连网的地方）
+2、禁用系统现有所有yum源
+3、挂载iso文件
+4、配置指向iso挂载的本地yum源并启用
+5、安装centos-stream-release、centos-stream-repos
+6、删除kernel-*-el8、安装kernel-*-el9
+7、更新软件包到el9（可能由于触发selinux重新打标，非常耗时，没有正常指向完，但系统重启后升级是正常的。可考虑setenforce 0再执行或许更好？）:
+dnf distro-sync --allowerasing
+（重启了，可以进入centos stream 9，验证：uname -a && cat /etc/os-release && cat /redhat-release && cat /etc/centos-release）
+8、如果后续使用dnf/yum报验签算法警告，可：
+setenforce 0
+rpm -v --rebuilddb
+9、检查系统中剩余的el8包，必要的话升级到el9
+rpm -qa|grep -i el8|wc -l
+```
 
 ## License
 
