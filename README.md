@@ -219,6 +219,7 @@ dnf distro-sync --allowerasing
 8、如果后续使用dnf/yum报验签算法警告，可：
 setenforce 0
 rpm -v --rebuilddb
+update-crypto-policies –set DEFAULT:SHA1
 9、检查系统中剩余的el8包，必要的话升级到el9
 rpm -qa|grep -i el8|wc -l
 ```
