@@ -221,7 +221,9 @@ setenforce 0
 rpm -v --rebuilddb
 update-crypto-policies –show
 update-crypto-policies –set DEFAULT:SHA1
-9、检查系统中剩余的el8包，必要的话升级到el9
+9、如果后续使用dnf/yum报模块缺失冲突，可：
+dnf module disable xxxxx
+10、检查系统中剩余的el8包，必要的话升级到el9
 rpm -qa|grep -i el8|wc -l
 ```
 
